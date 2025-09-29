@@ -1,0 +1,1 @@
+export const env={"PUBLIC_MICROCMS_API_URL":"https://a5xuqpwtq5.microcms.io/api/v1","PUBLIC_MICROCMS_API_KEY":"Y6G6BAYcmFljRgIyifFP8Ri5ljT8CpcairEK"}

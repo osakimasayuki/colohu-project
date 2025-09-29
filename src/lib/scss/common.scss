@@ -1,0 +1,187 @@
+@use './_includes/_mixins' as *;
+@use './_includes/_extends' as *;
+@use './_includes/_animations' as *;
+
+.is-SP {
+    display: none;
+
+    @include media_sp() {
+        display: block;
+    }
+}
+
+.is-PC {
+    display: block;
+
+    @include media_sp() {
+        display: none;
+    }
+}
+
+// Font
+body {
+    font-family: "游ゴシック体", "Yu Gothic", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+    color: var(--clr-text);
+    width: 100vw;
+    overflow-x: hidden;
+    line-height: 1.8;
+    transition: background-color 1s ease;
+    @include vw(
+        (
+            //
+            font-size: (null, 16)
+        )
+    );
+
+    &.is-fixed {
+        overflow-y: hidden;
+    }
+
+    .app {
+        margin: 0 auto;
+        max-width: 2000px;
+    }
+
+    &.is-dark {
+        background-color: #120D0B;
+        --clr-text: #ffffff;
+        color: #ffffff;
+        transition: background-color 1s ease, color 1s ease, fill 1s ease;
+
+        .header {
+            background-color: rgba(0, 0, 0, 0.6);
+            transition: background-color 1s ease;
+        }
+        .category-label {
+            color: #120D0B;
+        }
+        .nav__toggle span {
+            background-color: #ffffff;
+        }
+        .nav__logo svg {
+            fill: #ffffff;
+        }
+    }
+}
+// --- reset ----
+ul {
+    list-style: none;
+}
+a {
+    text-decoration: none;
+    color: var(--clr-text);
+}
+
+p {
+    white-space: pre-line;
+    font-weight: 500;
+}
+
+img {
+    object-fit: cover;
+}
+
+ul,
+ol {
+    padding: 0;
+    margin: 0;
+}
+
+.line-break {
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.lower {
+    @include vw(
+        (
+            //
+            padding: (120 16 0, 215 48 0)
+        )
+    );
+    &__title {
+        @extend %font-Poppins;
+        font-weight: 800;
+        line-height: 1;
+        @include vw(
+            (
+                //
+                font-size: (60, 130),
+                letter-spacing: (9.6, 26)
+            )
+        );
+    }
+}
+
+.category-label {
+    @extend %font-Poppins;
+    font-weight: 400;
+    background-color: var(--clr-text);
+    color: #ffffff;
+    display: inline-block;
+    text-align: center;
+
+    @include vw(
+        (
+            //
+            font-size: (14, 16),
+            min-width: (88, 100),
+            padding: (0 20, 0 10),
+            line-height: (28, 36),
+            border-radius: (28, 36)
+        )
+    );
+}
+
+.coming-soon {
+    text-align: center;
+    color: #939191;
+    @include vw(
+        (
+            //
+            font-size: (34, 50),
+            margin: (80 0 0, 50 0 0)
+        )
+    );
+}
+
+.richtext {
+    display: flex;
+	flex-direction: column;
+    @include vw(
+        (
+            //
+            gap: (32, 48),
+        )
+    );
+
+    @include media_sp {
+        line-height: 181%;
+    }
+
+    ul, li {
+        list-style:disc;
+    }
+
+    ul {
+        @include vw(
+            (
+                //
+                padding-left: (22, 26)
+            )
+        );
+    }
+
+    a {
+        text-decoration: underline;
+
+        &[target="_blank"] {
+            @extend %external-link;
+        }
+    }
+
+    img {
+        width: 100%;
+        height: auto;
+    }
+}

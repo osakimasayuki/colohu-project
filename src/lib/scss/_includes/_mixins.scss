@@ -1,0 +1,148 @@
+@use "sass:list";
+@use "sass:math";
+@use './settings' as *;
+
+// ---
+// pxをvwに変換するmixin
+// ---
+@mixin vw($properties) {
+    @each $property, $values in $properties {
+        $sp_values: list.nth($values, 1);
+        $pc_values: list.nth($values, 2);
+
+        // SP用のスタイル
+        @if $sp_values != null {
+            @media screen and (max-width: 767px) {
+                #{$property}: list.join(
+                    calculate-vw(
+                        filter-out-auto($sp_values), 
+                        $design-w-sp
+                    ),
+                    filter-auto($sp_values)
+                );
+            }
+        }
+
+        // PC用のスタイル（vw変換）
+        @if $pc_values != null {
+            @media screen and (min-width: 768px) and (max-width: $max-width) {
+                #{$property}: list.join(
+                    calculate-vw(
+                        filter-out-auto($pc_values), 
+                        $design-w-pc
+                    ),
+                    filter-auto($pc_values)
+                );
+            }
+
+            // 2000px以上のスタイル（px固定）
+            @media screen and (min-width:($max-width + 1)) {
+                #{$property}: list.join(
+                    calculate-px(
+                        filter-out-auto($pc_values)
+                    ),
+                    filter-auto($pc_values)
+                );
+            }
+        }
+    }
+}
+
+// "auto"を除いたリストを返す
+@function filter-out-auto($list) {
+    $result: ();
+    @each $item in $list {
+        @if $item != auto {
+            $result: list.append($result, $item);
+        }
+    }
+    @return $result;
+}
+
+// "auto"のみのリストを返す
+@function filter-auto($list) {
+    $result: ();
+    @each $item in $list {
+        @if $item == auto {
+            $result: list.append($result, auto);
+        }
+    }
+    @return $result;
+}
+
+// 複数のpx値をvwに変換する関数
+@function calculate-vw($values, $viewport-width) {
+    $vw_values: ();
+
+    // リストを反復処理
+    @each $value in $values {
+
+        // 0の場合はそのまま0を返す
+        @if $value ==0 {
+            $vw_values: list.append($vw_values, 0);
+        }
+
+        @else {
+            $vw_values: list.append($vw_values, math.div($value, $viewport-width) * 100vw);
+        }
+    }
+
+    @return $vw_values;
+}
+
+// 複数のpx値をpx単位で返す関数
+@function calculate-px($values) {
+    $px_values: ();
+
+    @each $value in $values {
+
+        // 0の場合はそのまま0を返す
+        @if $value ==0 {
+            $px_values: list.append($px_values, 0);
+        }
+
+        @else {
+            // 2000pxの時のpx値を計算して固定
+            $fixed-px-value: math.div(
+                $value, $design-w-pc) * 2000;
+            $px_values: list.append($px_values, #{$fixed-px-value}px
+            );
+        }
+    }
+
+    @return $px_values;
+}
+
+// media queries
+@mixin media_pc {
+    @media screen and (min-width: $break-point) {
+        @content;
+    }
+}
+
+@mixin media_sp {
+    @media screen and (max-width: ($break-point - 1)) {
+        @content;
+    }
+}
+
+@mixin media_large_pc {
+    @media screen and (min-width: ($max-width + 1)) {
+        @content;
+    }
+}
+
+@mixin media_not_sp {
+    @media screen and (min-width: $break-point) {
+        @content;
+    }
+}
+
+
+@mixin hover {
+    @include media_not_sp {
+        &:hover {
+            @content;
+        }
+	}
+}

@@ -1,0 +1,34 @@
+@use './mixins' as *;
+
+%font-Poppins {
+    font-family: 'Poppins', sans-serif;
+    font-style: normal;
+}
+
+%external-link {
+    position: relative;
+    text-decoration: underline;
+    @include vw(
+        (
+            //
+            padding-right: (20, 20)
+        )
+    );
+    &::after {
+        content: '';
+        position: absolute;
+        background-image: url('$lib/images/external-link-icon.svg');
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-position: center center;
+        top: 0;
+        right: 0;
+        @include vw(
+            (
+                //
+                width: (12, 12),
+                height: (12, 13),
+            )
+        );
+    }
+}
