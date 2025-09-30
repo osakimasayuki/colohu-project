@@ -1,6 +1,5 @@
 <script lang="ts">
 	import type { PageProps } from './$types';
-	import type { NewsType } from '$lib/@types';
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
 	import CategoryTab from '$lib/compornents/parts/CategoryTab.svelte';
@@ -19,17 +18,12 @@
 	// - Variables
 	const categories: string[] = ['All', 'Info', 'Award', 'Media'];
 	let activeCategory: string = $state('All');
-	let filterdData: NewsType[] = $state([]);
 	let pageNum: number = $state(1);
-
-	// - Functions
-	const filter = () => {
-		filterdData = data.news.filter((item: NewsType) => item.category[0] === activeCategory);
-	};
 
 	// - Lifecycles
 	onMount(() => {
 		pageNum = Number($page.url.searchParams.get('page'));
+		activeCategory = $page.url.searchParams.get('category') || 'All';
 	});
 
 	onMount(() => {
@@ -53,13 +47,11 @@
 			{activeCategory}
 			onSelectCategory={(category) => {
 				activeCategory = category;
-				filter();
 			}}
 		/>
 
-		{@const list = filterdData.length > 0 ? filterdData : res}
 		<ul class="news__list">
-			{#each list as item, _ (item.id)}
+			{#each res as item, _ (item.id)}
 				<li class="news__item js-scroll-in">
 					<NewsRow {item} />
 				</li>

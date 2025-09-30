@@ -70,7 +70,7 @@ export const scrollInAnimation = () => {
 				ease: 'power2.out',
 				scrollTrigger: {
 					trigger: el,
-					start: 'top 80%',
+					start: 'top 90%',
 					toggleActions: 'play none none reverse'
 				}
 			}

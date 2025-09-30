@@ -11,7 +11,7 @@
 	</p>
 	<enhanced:img src="$lib/images/top/about.png?enhanced" alt="" class="about__img js-scroll-in" />
 	<div class="section__bottom">
-		<InnerLink href="/project/" labelWords={['View', 'more']} />
+		<InnerLink href="/about/" labelWords={['View', 'more']} />
 	</div>
 </section>
 

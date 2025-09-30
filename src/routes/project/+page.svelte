@@ -19,17 +19,12 @@
 	// - Variables
 	const categories: string[] = ['All', 'House', 'Office', 'Shop', 'Public', 'Other'];
 	let activeCategory: string = $state('All');
-	let filterdData: ProjectType[] = $state([]);
 	let pageNum: number = $state(1);
-
-	// - Functions
-	const filter = () => {
-		filterdData = data.projects.filter((item: ProjectType) => item.category[0] === activeCategory);
-	};
 
 	// - Lifecycles
 	onMount(() => {
-		pageNum = Number($page.url.searchParams.get('page'));
+		pageNum = Number($page.url.searchParams.get('page')) || 1;
+		activeCategory = $page.url.searchParams.get('category') || 'All';
 	});
 
 	onMount(() => {
@@ -53,19 +48,17 @@
 			{activeCategory}
 			onSelectCategory={(category) => {
 				activeCategory = category;
-				filter();
 			}}
 		/>
 
-		{@const list = activeCategory === 'All' ? res : filterdData}
 		<ul class="projects">
-			{#each list as item, _ (item.id)}
+			{#each res as item, _ (item.id)}
 				<li class="js-scroll-in">
 					<ProjectCard {item} />
 				</li>
 			{/each}
 		</ul>
-		<Pagination pagePath="/projects/" totalPage={data.totalPage} pageNo={pageNum} />
+		<Pagination pagePath="/project/" totalPage={data.totalPage} pageNo={pageNum} />
 	{:catch}
 		<p>時間をおいてもう一度お試しください。</p>
 	{/await}

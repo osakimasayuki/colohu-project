@@ -28,18 +28,18 @@
 		<!-- 最初のページ -->
 		{#if pageNo > 2}
 			<li>
-				<a href={getLink(1)} class:-current={currentPage === 1}>1</a>
+				<a href={getLink(1)} class:-current={currentPage === 1} data-sveltekit-reload>1</a>
 			</li>
 			{#if pageNo > POINT_LENGTH}
 				<li class="dot">...</li>
 			{/if}
 		{/if}
-
 		<!-- 中間のページ -->
 		{#each Array.from({ length: totalPage }, (_, i) => i + 1) as id (id)}
 			{#if id === pageNo || id === pageNo - 1 || id === pageNo + 1}
+				<!-- {id}, {pageNo} -->
 				<li>
-					<a href={getLink(id)} class:-current={pageNo === id}>
+					<a href={getLink(id)} class:-current={pageNo === id} data-sveltekit-reload>
 						{id}
 					</a>
 				</li>
@@ -52,7 +52,7 @@
 				<li class="dot">...</li>
 			{/if}
 			<li>
-				<a href={getLink(totalPage)} class:-current={pageNo === totalPage}>
+				<a href={getLink(totalPage)} class:-current={pageNo === totalPage} data-sveltekit-reload>
 					{totalPage}
 				</a>
 			</li>
@@ -99,11 +99,11 @@
 				@include vw(
 					(
 						//
-						margin: (null, 0 12)
+						margin: (null, 0 1)
 					)
 				);
 
-				&.-current {
+				&:global(.-current) {
 					pointer-events: none;
 					font-weight: bold;
 				}

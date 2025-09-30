@@ -30,7 +30,8 @@
 		@include vw(
 			(
 				//
-				padding: (65 16 0, 40 0 0 80)
+				padding: (65 16 0, 40 0 0 80),
+				min-height: (null, 558)
 			)
 		);
 
