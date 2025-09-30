@@ -13,9 +13,9 @@
 		const anim = gsap.from(items, {
 			y: 50,
 			opacity: 0,
-			duration: 0.2,
+			duration: 0.4,
 			ease: 'power2.out',
-			stagger: 0.04
+			stagger: 0.06
 		});
 
 		return () => anim.kill();
@@ -38,11 +38,6 @@
 
 			:global(.logo-chara) {
 				fill: var(--clr-text);
-				shape-rendering: crispEdges;
-				// -webkit-transform: translateZ(0);
-				// transform: translateZ(0);
-				image-rendering: optimizeQuality;
-				image-rendering: -webkit-optimize-contrast; // Safari用
 			}
 		}
 	}

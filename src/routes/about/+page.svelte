@@ -250,7 +250,8 @@
 					//
 					margin-bottom: (48, 130),
 					margin-top: (null, -70),
-					padding-top: (null, 70)
+					padding-top: (null, 70),
+					font-size: (16, null)
 				)
 			);
 
@@ -347,8 +348,7 @@
 				@include vw(
 					(
 						//
-						padding: (16 8, 24 12),
-						font-size: (16, null)
+						padding: (16 8, 24 12)
 					)
 				);
 

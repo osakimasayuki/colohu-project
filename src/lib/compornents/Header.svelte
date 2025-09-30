@@ -67,7 +67,13 @@
 	});
 </script>
 
-<a class="header-logo" href="/" aria-label="サイトTOPへ" bind:this={headerLogoDom}>
+<a
+	class="header-logo"
+	class:is-open={isOpen}
+	href="/"
+	aria-label="サイトTOPへ"
+	bind:this={headerLogoDom}
+>
 	<LogoAnimation />
 </a>
 <header class="header">
@@ -123,9 +129,8 @@
 		top: 0;
 		left: 0;
 		z-index: 110;
-		transition: transform 0.4s ease;
-		transform: scale(1);
 		transform-origin: left;
+		will-change: width;
 		@include vw(
 			(
 				//
@@ -138,23 +143,32 @@
 
 		:global(svg) {
 			height: 100%;
+			width: auto;
 		}
-
-		&:global(.is-top) {
+		&:global(:not(.is-top)) {
+			transition:
+				width 0.2s cubic-bezier(0.23, 1, 0.32, 1),
+				height 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+		}
+		&:global(.is-top):not(.is-open) {
 			position: absolute;
 			pointer-events: none;
-			transform: scale(4.05);
 			@include vw(
 				(
 					//
-					top: (135, 288),
-					left: (16, 48)
+					top: (120, 230),
+					left: (16, 48),
+					width: (330, 902),
+					height: (47, 130)
 				)
 			);
-
-			@include media_sp {
-				z-index: 90;
-				transform: scale(2);
+			:global(svg) {
+				@include vw(
+					(
+						//
+						height: (47, 130)
+					)
+				);
 			}
 		}
 	}
