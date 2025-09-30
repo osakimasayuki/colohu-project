@@ -5,6 +5,7 @@ export interface ProjectType {
 	category: string;
 	place: string;
 	thumbs: { url: string }[];
+	external_link: string;
 	body: string;
 }
 

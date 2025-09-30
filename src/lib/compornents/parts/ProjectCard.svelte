@@ -9,7 +9,12 @@
 	let { item }: Props = $props();
 </script>
 
-<a href="/project/{item.id}/" class="project__link">
+<a
+	href={item.external_link ? item.external_link : `/project/${item.id}/`}
+	class="project__link"
+	target={item.external_link ? '_blank' : '_self'}
+	rel={item.external_link ? 'noopener noreferrer' : ''}
+>
 	<span>
 		{#each item.thumbs as thumb, j (thumb.url)}
 			<img class="project__thumb" src="{thumb.url}?fm=webp" alt={`${j}`} />
