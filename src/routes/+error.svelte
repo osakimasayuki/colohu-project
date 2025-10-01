@@ -1,5 +1,27 @@
 <script lang="ts">
 	import InnerLink from '$lib/compornents/parts/InnerLink.svelte';
+
+	import { page } from '$app/stores';
+	import { onMount } from 'svelte';
+	import { goto } from '$app/navigation';
+
+	const redirects: Record<string, string> = {
+		'/works/eFGjIPaX/': '/project/ixxisbsit/',
+		'/works/1SIt6ALF/': '/project/ahgdbv_p5/',
+		'/works/QAfLQSU1/': '/project/rcfd67p30/',
+		'/works/W8oFqyGl/': '/project/yp_utfo9uf/',
+		'/works/k_mb83ub/': '/project/jfuztd7pzo4/',
+		'/works/OCFFScJu/': '/project/vu7os5el_5l/',
+		'/works/GotandaOffice/': '/project/1om_wwbft0/'
+	};
+
+	onMount(() => {
+		const currentPath = $page.url.pathname;
+		const target = redirects[currentPath];
+		if (target) {
+			goto(target);
+		}
+	});
 </script>
 
 <svelte:head>
